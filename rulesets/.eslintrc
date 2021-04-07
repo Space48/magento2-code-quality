@@ -2,7 +2,6 @@
     "rules": {
         "indent": ["error", 4],
         "semi": [2, "always"],
-        "one-var": ["error", { "var": "consecutive" }],
         "yoda": ["error", "never"],
         "no-tabs": "error",
         "camelcase": "error",

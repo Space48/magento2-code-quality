@@ -24,7 +24,7 @@
     </rule>
 
     <!-- Extra features -->
-    <rule ref="lib/internal/Space48/code-quality/rulesets/PhpMd/extra.xml" >
+    <rule ref="vendor/space48/code-quality/rulesets/PhpMd/extra.xml" >
     </rule>
 
 </ruleset>

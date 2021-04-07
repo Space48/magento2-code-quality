@@ -3,7 +3,7 @@
 <ruleset name="Space48 Coding Standard">
     <arg name="extensions" value="php,phtml" />
 
-    <rule ref="Magento2">
+    <rule ref="vendor/magento/magento-coding-standard/Magento2/ruleset.xml">
         <!-- Serves no purpose -->
         <exclude name="Squiz.Commenting.ClassComment.Missing" />
 
@@ -22,8 +22,8 @@
 
     <rule ref="Generic.Metrics.CyclomaticComplexity">
         <properties>
-            <property name="complexity" value="12" />
-            <property name="absoluteComplexity" value="12" />
+            <property name="complexity" value="13" />
+            <property name="absoluteComplexity" value="13" />
         </properties>
     </rule>
 </ruleset>

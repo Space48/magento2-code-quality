@@ -38,10 +38,14 @@ git add ruleset.xml phpmd.xml .eslintrc grumphp.yml
 
 #### 2. Add following to project`s 'Makefile':
 ```makefile
-linters-install: # installs Space48 Code Quality
-    warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
-    warden env exec php-fpm ./vendor/space48/code-quality/script/install.sh
-    vendor/bin/grumphp git:init
+win:
+	open 'https://de-app.avaeta.test'
+	@echo "You are successful."
+
+linters-install:
+	warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
+	warden env exec php-fpm ./vendor/space48/code-quality/script/install.sh
+	vendor/bin/grumphp git:init
 
 analyse: # analyses all code from starting commit hash to HEAD
 	git diff e111c999..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
