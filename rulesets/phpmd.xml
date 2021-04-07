@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<ruleset name="Space48 Coding Standard">
+    <!-- Magento 2 rulesets -->
+    <rule ref="dev/tests/static/testsuite/Magento/Test/Php/_files/phpmd/ruleset.xml" >
+        <!-- excluded to overwrite parameters -->
+        <exclude name="CyclomaticComplexity" />
+        <exclude name="CouplingBetweenObjects" />
+
+        <!-- overwritten in 'extra.xml' -->
+        <exclude name="ExcessiveParameterList" />
+    </rule>
+
+    <rule ref="dev/tests/static/testsuite/Magento/Test/Php/_files/phpmd/ruleset.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="12" />
+        </properties>
+    </rule>
+
+    <rule ref="dev/tests/static/testsuite/Magento/Test/Php/_files/phpmd/ruleset.xml/CouplingBetweenObjects">
+        <properties>
+            <property name="maximum" value="18" />
+        </properties>
+    </rule>
+
+    <!-- Extra features -->
+    <rule ref="lib/internal/Space48/code-quality/rulesets/PhpMd/extra.xml" >
+    </rule>
+
+</ruleset>

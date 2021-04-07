@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<ruleset name="Space48 Coding Standard Project Specific">
+    <rule ref="vendor/space48/code-quality/rulesets/phpmd.xml" >
+    </rule>
+
+</ruleset>

@@ -1,0 +1,37 @@
+grumphp:
+    git_hook_variables:
+        EXEC_GRUMPHP_COMMAND: 'warden env run --rm php-fpm'
+    ignore_unstaged_changes: false
+    tasks:
+        phpmd:
+            whitelist_patterns:
+                - /^app/
+            triggered_by: [ 'php', 'phtml' ]
+            exclude: [ ]
+            report_format: ansi
+            ruleset: [ 'phpmd.xml' ]
+        phpcs:
+            standard: [ 'ruleset.xml' ]
+            severity: ~
+            error_severity: ~
+            warning_severity: ~
+            tab_width: ~
+            report: full
+            report_width: ~
+            whitelist_patterns:
+                - /^app/
+            triggered_by: [ 'php', 'phtml' ]
+            encoding: ~
+            ignore_patterns: [ ]
+            sniffs: [ ]
+            exclude: [ ]
+        eslint:
+            bin: node_modules/.bin/eslint
+            triggered_by: [ js, jsx, ts, tsx, vue ]
+            whitelist_patterns: [ /^app/ ]
+            config: .eslintrc
+            debug: false
+            format: ~
+            max_warnings: ~
+            no_eslintrc: false
+            quiet: false

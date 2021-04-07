@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<ruleset name="Space48 Coding Standard">
+    <arg name="extensions" value="php,phtml" />
+
+    <rule ref="Magento2">
+        <!-- Serves no purpose -->
+        <exclude name="Squiz.Commenting.ClassComment.Missing" />
+
+        <exclude name="Magento2.CodeAnalysis.EmptyBlock.DetectedFunction" />
+        <exclude name="Magento2.Exceptions.ThrowCatch" />
+        <exclude name="Magento2.Commenting.ClassAndInterfacePHPDocFormatting.InvalidDescription" />
+        <exclude name="Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge" />
+    </rule>
+
+    <rule ref="Squiz.Commenting.DocCommentAlignment.SpaceBeforeStar">
+        <exclude-pattern>*\.phtml$</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis">
+        <exclude-pattern>*\.phtml$</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.Metrics.CyclomaticComplexity">
+        <properties>
+            <property name="complexity" value="12" />
+            <property name="absoluteComplexity" value="12" />
+        </properties>
+    </rule>
+</ruleset>

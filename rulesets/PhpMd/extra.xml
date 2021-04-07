@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<ruleset name="Space48 Coding Standard Extra"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+    <rule name="ExcessiveParameterList"
+          since="0.1"
+          message="The {0} {1} has {2} parameters. Consider reducing the number of parameters to less than {3}."
+          class="Space48\CodeQuality\RuleSets\PhpMd\Design\LongParameterList"
+          externalInfoUrl="http://phpmd.org/rules/codesize.html#excessiveparameterlist">
+        <description>
+            Long parameter lists can indicate that a new object should be created to
+            wrap the numerous parameters.  Basically, try to group the parameters together.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="minimum" description="The parameter count reporting threshold" value="5"/>
+            <property name="constructor_minimum" description="reporting threshold for '__construct()'" value="13"/>
+        </properties>
+        <example>
+            <![CDATA[
+class Foo {
+    public function addData(
+        $p0, $p1, $p2, $p3, $p4, $p5,
+        $p5, $p6, $p7, $p8, $p9, $p10) {
+    }
+}
+            ]]>
+        </example>
+
+    </rule>
+</ruleset>

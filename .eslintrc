@@ -1,0 +1,3 @@
+{
+    "extends": "./vendor/space48/code-quality/rulesets/.eslintrc"
+}

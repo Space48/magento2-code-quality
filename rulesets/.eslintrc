@@ -1,0 +1,47 @@
+{
+    "rules": {
+        "indent": ["error", 4],
+        "semi": [2, "always"],
+        "one-var": ["error", { "var": "consecutive" }],
+        "yoda": ["error", "never"],
+        "no-tabs": "error",
+        "camelcase": "error",
+        "max-len": ["error", { "code": 120,  "comments": 150 }],
+        "max-lines": ["error", {"max": 250, "skipComments": true}],
+        "complexity": ["error", { "max": 12 }],
+        "no-undef": "off",
+        "padded-blocks": "off",
+        "guard-for-in": "off",
+        // VCQ1
+        "no-mixed-operators": [
+            "error",
+            {
+                "groups": [
+                    ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                    ["in", "instanceof"]
+                ],
+                "allowSamePrecedence": true
+            }
+        ],
+        // VCQ2
+        "id-length": [
+            "error",
+            {
+                "min": 3,
+                "max": 30,
+                "exceptions": ["x", "i", "j", "e", "$", "_", "__", "ko"],
+                "properties": "never"
+            }
+        ],
+        // VCQ3
+        "valid-jsdoc": ["error", {
+            "preferType": {
+            },
+            "requireReturn": false,
+            "requireReturnDescription": false,
+            "requireParamDescription": false
+        }],
+        "eqeqeq": "warn",
+        "no-unneeded-ternary": "off"
+    }
+}
