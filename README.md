@@ -26,9 +26,18 @@ make analyse
 Add Code Quality tool to the Magento Project:
 
 ### Installation on a regular _Space48 Warden based Magento 2_ project:
+####NOTE!
+On Megento versions **earlier than 2.4** add following to 'require' section of project's `composer.json`:
+```
+"require": {
+  ...
+  "symfony/options-resolver": "v2.8.52 as 4.4"
+}
+```
 
 #### 1. Run following commands from project root:
 ```
+warden env exec php-fpm composer config repositories.space48-code-quality vcs git@github.com:Space48/code-quality.git
 warden env exec php-fpm composer require --dev space48/code-quality:@dev
 warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
 warden env exec ./vendor/space48/code-quality/script/install.sh
@@ -42,7 +51,7 @@ win:
 	open 'https://de-app.avaeta.test'
 	@echo "You are successful."
 
-linters-install:
+linters-init: # init linters on local machine
 	warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
 	warden env exec php-fpm ./vendor/space48/code-quality/script/install.sh
 	vendor/bin/grumphp git:init
