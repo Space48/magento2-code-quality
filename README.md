@@ -47,10 +47,6 @@ git add ruleset.xml phpmd.xml .eslintrc grumphp.yml
 
 #### 2. Add following to project`s 'Makefile':
 ```makefile
-win:
-	open 'https://de-app.avaeta.test'
-	@echo "You are successful."
-
 linters-init: # init linters on local machine
 	warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
 	warden env exec php-fpm ./vendor/space48/code-quality/script/install.sh
