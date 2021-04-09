@@ -1,10 +1,11 @@
 # Space48 Code Quality tool
 
-A module that helps to easily apply static code analysers to the project`s code. 
-It uses [grumphp](https://github.com/phpro/grumphp) under the hood and has predefined set of rules 
-based on Magento 2 coding standards and tuned to be less annoying.
+A module that helps to easily apply static code analysers to the project's code. 
+It uses [grumphp](https://github.com/phpro/grumphp) under the hood with a predefined set of rules 
+based on Magento 2 coding standards but tuned to be less annoying!
 
 ## Usage
+
 After pulling and installing a project locally just run following command to update local git hooks 
 and install npm packages inside Docker container:  
 ```shell
@@ -26,8 +27,8 @@ make analyse
 Add Code Quality tool to the Magento Project:
 
 ### Installation on a regular _Space48 Warden based Magento 2_ project:
-####NOTE!
-On Megento versions **earlier than 2.4** add following to 'require' section of project's `composer.json`:
+
+On Magento versions **earlier than 2.4** add following to 'require' section of project's `composer.json`:
 ```
 "require": {
   ...
