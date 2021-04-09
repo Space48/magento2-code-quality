@@ -24,7 +24,7 @@
     </rule>
 
     <!-- Extra features -->
-    <rule ref="vendor/space48/code-quality/rulesets/PhpMd/extra.xml" >
+    <rule ref="vendor/space48/magento2-code-quality/rulesets/PhpMd/extra.xml" >
     </rule>
 
 </ruleset>

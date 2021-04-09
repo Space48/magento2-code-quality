@@ -37,30 +37,43 @@ On Magento versions **earlier than 2.4** add following to 'require' section of p
 ```
 
 #### 1. Run following commands from project root:
+Add the module
+```shell
+warden env exec php-fpm composer require --dev space48/magento2-code-quality
 ```
-warden env exec php-fpm composer config repositories.space48-code-quality vcs git@github.com:Space48/code-quality.git
-warden env exec php-fpm composer require --dev space48/code-quality:@dev
-warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
-warden env exec ./vendor/space48/code-quality/script/install.sh
+
+When it will ask for 'grumphp.yml' creation - answer `no`: 
+```shell
+Do you want to create a grumphp.yml file? [Yes]: no
+```
+
+Copy files and install npm packages:
+```shell
+warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
+warden env exec ./vendor/space48/magento2-code-quality/script/install.sh
 vendor/bin/grumphp git:init
+```
+
+Add configuration files to git:
+```shell
 git add ruleset.xml phpmd.xml .eslintrc grumphp.yml
 ```
 
 #### 2. Add following to project`s 'Makefile':
 ```makefile
 linters-init: # init linters on local machine
-	warden env exec php-fpm chmod +x ./vendor/space48/code-quality/script/install.sh
-	warden env exec php-fpm ./vendor/space48/code-quality/script/install.sh
+	warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
+	warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
 	vendor/bin/grumphp git:init
 
 analyse: # analyses all code from starting commit hash to HEAD
-	git diff e111c999..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
+	git diff a000z999..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
 
 precommit: # analyses code staged for commit
 	git diff --staged | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
 ```
 
-Replace the sample `e111c999` commit hash with the hash from the project where you want to start linting from.
+Replace the sample `a000z999` commit hash with the hash from the project where you want to start linting from.
 Files modified after the starting commit hash will be linted during project build and will fail the build on linter violations. 
 
 #### 3. Commit to project`s repo.
@@ -68,7 +81,7 @@ Commit updated composer files, vendor folder, code-quality config files from the
 
 ### Installation on any other Magento 2 project:
 1. add module `space48/code-quality` via Composer
-2. run `vendor/space48/code-quality/script/install.sh` script to copy necessary files
+2. run `vendor/space48/code-quality/script/install.sh` script to copy necessary files and install npm packages
 3. run `vendor/bin/grumphp git:init` to update precommit hooks
 
 ## Configuration
@@ -93,6 +106,8 @@ To turn off whole linter type (for example 'eslint') - remove or comment out cor
 
 Linter rules can be finetuned on a project level by editing `ruleset.xml, phpmd.xml, .eslintrc` files.
 See `Space48/code-quality/rulesets/` for examples.
+
+Some rules can be overwritten on a class level. See `rulesets/PhpMd/extra.xml` for examples. 
 
 ## More info
 For more info and for Configuration help refer to [grumphp repo](https://github.com/phpro/grumphp) docs.
