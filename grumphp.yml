@@ -13,7 +13,7 @@ services:
             - '@formatter.phpmd'
         tags:
             - { name: grumphp.task, task: phpmd }
-    ## workaround to ass '-s' option to PhpCs Task
+    ## workaround to add '-s' option to PhpCs Task
     process_builder:
         class: \Space48\CodeQuality\Process\ProcessBuilder
         arguments:

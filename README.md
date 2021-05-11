@@ -50,7 +50,7 @@ Do you want to create a grumphp.yml file? [Yes]: no
 Copy files and install npm packages:
 ```shell
 warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
-warden env exec ./vendor/space48/magento2-code-quality/script/install.sh
+warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
 vendor/bin/grumphp git:init
 ```
 
