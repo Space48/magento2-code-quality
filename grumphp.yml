@@ -1,14 +1,42 @@
+## rewrite classes to format output to have rule names in it
+services:
+    formatter.phpmd:
+        class: \Space48\CodeQuality\Formatter\PhpmdFormatter
+    formatter.phpcs:
+        class: \Space48\CodeQuality\Formatter\PhpcsFormatter
+    GrumPHP\Task\PhpMd:
+        ## rewrite class to whitelist 'xml' format
+        class: \Space48\CodeQuality\Task\PhpMd
+        ## set 'phpmd' formatter for PhpMd Task
+        arguments:
+            - '@process_builder'
+            - '@formatter.phpmd'
+        tags:
+            - { name: grumphp.task, task: phpmd }
+    ## workaround to add '-s' option to PhpCs Task
+    process_builder:
+        class: \Space48\CodeQuality\Process\ProcessBuilder
+        arguments:
+            - '@GrumPHP\Locator\ExternalCommand'
+            - '@grumphp.io'
+            - '@GrumPHP\Configuration\Model\ProcessConfig'
+        public: true
+
+## linter settings
 grumphp:
     git_hook_variables:
         EXEC_GRUMPHP_COMMAND: 'warden env run --rm php-fpm'
     ignore_unstaged_changes: false
+    fixer:
+        enabled: false
+        fix_by_default: true
     tasks:
         phpmd:
             whitelist_patterns:
                 - /^app/
             triggered_by: [ 'php', 'phtml' ]
             exclude: [ ]
-            report_format: ansi
+            report_format: xml
             ruleset: [ 'phpmd.xml' ]
         phpcs:
             standard: [ 'ruleset.xml' ]
