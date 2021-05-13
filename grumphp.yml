@@ -28,7 +28,7 @@ grumphp:
         EXEC_GRUMPHP_COMMAND: 'warden env run --rm php-fpm'
     ignore_unstaged_changes: false
     fixer:
-        enabled: false
+        enabled: true
         fix_by_default: true
     tasks:
         phpmd:

@@ -6,17 +6,45 @@ based on Magento 2 coding standards but tuned to be less annoying!
 
 ## Usage
 
-After pulling and installing a project locally just run following command to update local git hooks 
-and install npm packages inside Docker container:  
-```shell
-make linters-install
-```
-Now on pre-commit either from console or from phpstorm a linter will run against committed code
+After pulling and installing/updating project locally composer hook should install linters automatically. 
+It will add precommit git hook, so on each commit linters will run for the files added to commit. 
 
-To run precommit manually:
+If that does not happen run following command to update local git hooks and install npm packages:  
+```shell
+make linters-init
+```
+
+### Git Pre-Commit
+A commit will fail if linters found errors in your code, check the '_console_' tab in 'Git' section of the PhpStorm 
+for errors output by linters. Fix all errors and commit again.
+
+**Warning**
+By default Autofix feature is turned ON. Once you try to commit, linters will automatically fix some errors. 
+Double check changes after.
+
+When fixing errors, to see predicted linters output you can instead of trying to commit again just run manually from console:
 ```shell
 make precommit
 ```
+
+### Ignoring Rules
+in the linters output you will see hints with rule names being violated. If for some reason you can not fix violated rule
+feel free to ignore it using Suppress Warning comment corresponding concrete linter type (see hints in output or google).
+
+**IMPORTANT!**
+When ignoring a rule in the code always add a comment with the reason of why you had ignored it instead of fixing.
+
+### Finetuning
+
+Rules can be tuned with parameters, excluded completely or rewritten on a Project Level 
+using the `ruleset.xml, phpmd.xml, .eslintrc, .stylelint` files in the project's root folder and committing them to project's repo.
+
+If you think everyone can benefit from your rules changes - feel free to create a PR.
+
+### CI Integration
+
+_(TBD)_
+
 To run linters as it would run on CI (from starting commit till HEAD):
 ```shell
 make analyse
@@ -76,7 +104,27 @@ precommit: # analyses code staged for commit
 Replace the sample `a000z999` commit hash with the hash from the project where you want to start linting from.
 Files modified after the starting commit hash will be linted during project build and will fail the build on linter violations. 
 
-#### 3. Commit to project`s repo.
+#### 3. Add post update/install composer hooks:
+
+composer.json
+```json
+{
+  ...
+  "scripts": {
+    "post-update-cmd": [
+      ...
+      "make linters-init"
+    ],
+    "post-install-cmd": [
+      ...
+      "make linters-init"
+    ]
+  }
+  ...
+}
+```
+
+#### 4. Commit to project`s repo.
 Commit updated composer files, vendor folder, code-quality config files from the root and 'makefile' changes 
 
 ### Installation on any other Magento 2 project:
@@ -104,7 +152,7 @@ eslint:
 ```
 To turn off whole linter type (for example 'eslint') - remove or comment out corresponding 'task' section.
 
-Linter rules can be finetuned on a project level by editing `ruleset.xml, phpmd.xml, .eslintrc` files.
+Linter rules can be finetuned on a project level by editing `ruleset.xml, phpmd.xml, .eslintrc, .stylelint` files.
 See `Space48/code-quality/rulesets/` for examples.
 
 Some rules can be overwritten on a class level. See `rulesets/PhpMd/extra.xml` for examples. 
