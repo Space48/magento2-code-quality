@@ -6,13 +6,11 @@ based on Magento 2 coding standards but tuned to be less annoying!
 
 ## Usage
 
-After pulling and installing/updating project locally composer hook should install linters automatically. 
-It will add precommit git hook, so on each commit linters will run for the files added to commit. 
-
-If that does not happen run following command to update local git hooks and install npm packages:  
+After pulling and installing/updating project locally run following command to update local git hooks and install npm packages:  
 ```shell
 make linters-init
 ```
+It will add precommit git hook, so on each commit linters will run for the files added to commit.
 
 ### Git Pre-Commit
 A commit will fail if linters found errors in your code, check the '_console_' tab in 'Git' section of the PhpStorm 
@@ -104,27 +102,7 @@ precommit: # analyses code staged for commit
 Replace the sample `a000z999` commit hash with the hash from the project where you want to start linting from.
 Files modified after the starting commit hash will be linted during project build and will fail the build on linter violations. 
 
-#### 3. Add post update/install composer hooks:
-
-composer.json
-```json
-{
-  ...
-  "scripts": {
-    "post-update-cmd": [
-      ...
-      "make linters-init"
-    ],
-    "post-install-cmd": [
-      ...
-      "make linters-init"
-    ]
-  }
-  ...
-}
-```
-
-#### 4. Commit to project`s repo.
+#### 3. Commit to project`s repo.
 Commit updated composer files, vendor folder, code-quality config files from the root and 'makefile' changes 
 
 ### Installation on any other Magento 2 project:
