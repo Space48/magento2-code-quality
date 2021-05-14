@@ -82,7 +82,7 @@ vendor/bin/grumphp git:init
 
 Add configuration files to git:
 ```shell
-git add ruleset.xml phpmd.xml .eslintrc grumphp.yml
+git add ruleset.xml phpmd.xml .eslintrc .stylelintrc grumphp.yml
 ```
 
 #### 2. Add following to project`s 'Makefile':
@@ -100,7 +100,11 @@ precommit: # analyses code staged for commit
 ```
 
 Replace the sample `a000z999` commit hash with the hash from the project where you want to start linting from.
-Files modified after the starting commit hash will be linted during project build and will fail the build on linter violations. 
+Files modified after the starting commit hash will be linted during project build and will fail the build on linter violations.
+
+**Note:**
+If using warden, commit still fails with `SplFileInfo::openFile(/var/www/html/.git/COMMIT_EDITMSG): failed to open st  
+ream: No such file or directory` error: rename or revert to original git 'commit-msg' hook.
 
 #### 3. Commit to project`s repo.
 Commit updated composer files, vendor folder, code-quality config files from the root and 'makefile' changes 
