@@ -21,10 +21,22 @@ services:
             - '@grumphp.io'
             - '@GrumPHP\Configuration\Model\ProcessConfig'
         public: true
+    ## workaround to remove 'commit-msg' git hook (it may fail in warden if .git is not synced inside container)
+    ## (remove on non warden environment)
+    GrumPHP\Console\Command\Git\InitCommand:
+        class: \Space48\CodeQuality\Command\InitCommand
+        arguments:
+            - '@GrumPHP\Configuration\Model\HooksConfig'
+            - '@grumphp.util.filesystem'
+            - '@process_builder'
+            - '@GrumPHP\Util\Paths'
+        tags:
+            - { name: 'console.command' }
 
 ## linter settings
 grumphp:
     git_hook_variables:
+        ## (remove on non warden environment)
         EXEC_GRUMPHP_COMMAND: 'warden env run --rm php-fpm'
     ignore_unstaged_changes: false
     fixer:

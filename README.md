@@ -80,6 +80,14 @@ warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
 vendor/bin/grumphp git:init
 ```
 
+Create `.git` folder in warden:
+
+(_You can mount .git volume from host to inside container instead, but `grumphp` only requires empty .git folder, 
+no much sense in syncronizing all .git/* files adding even more overhead for mutagen._)
+```shell
+warden env exec php-fpm /bin/bash -c '[ -d .git ] || mkdir .git'
+```
+
 Add configuration files to git:
 ```shell
 git add ruleset.xml phpmd.xml .eslintrc .stylelintrc grumphp.yml
@@ -90,6 +98,7 @@ git add ruleset.xml phpmd.xml .eslintrc .stylelintrc grumphp.yml
 linters-init: # init linters on local machine
 	warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
 	warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
+	warden env exec php-fpm /bin/bash -c '[ -d .git ] || mkdir .git'
 	vendor/bin/grumphp git:init
 
 analyse: # analyses all code from starting commit hash to HEAD
@@ -112,7 +121,8 @@ Commit updated composer files, vendor folder, code-quality config files from the
 ### Installation on any other Magento 2 project:
 1. add module `space48/code-quality` via Composer
 2. run `vendor/space48/code-quality/script/install.sh` script to copy necessary files and install npm packages
-3. run `vendor/bin/grumphp git:init` to update precommit hooks
+3. in `grumphp.yml` remove configs marked as `(remove on non warden environment)`
+4. run `vendor/bin/grumphp git:init` to update precommit hooks
 
 ## Configuration
 
