@@ -32,6 +32,12 @@ services:
             - '@GrumPHP\Util\Paths'
         tags:
             - { name: 'console.command' }
+    GrumPHP\Locator\RegisteredFiles:
+        class: \Space48\CodeQuality\Locator\RegisteredFiles
+        arguments:
+            - '@GrumPHP\Git\GitRepository'
+            - '@GrumPHP\Util\Paths'
+            - '@GrumPHP\Locator\ListedFiles'
 
 ## linter settings
 grumphp:
