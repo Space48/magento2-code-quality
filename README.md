@@ -6,6 +6,8 @@ based on Magento 2 coding standards but tuned to be less annoying!
 
 ## Usage
 
+### Usage on a regular Space48 Warden based Magento 2 project:
+
 After pulling and installing/updating project locally run following command to update local git hooks and install npm packages:  
 ```shell
 make linters-init
@@ -24,6 +26,11 @@ When fixing errors, to see predicted linters output you can instead of trying to
 ```shell
 make precommit
 ```
+
+### Usage on other projects
+
+Run `vendor/bin/grumphp git:init` to add githook
+Grumphp will sniff your code on any git commit
 
 ### Ignoring Rules
 in the linters output you will see hints with rule names being violated. If for some reason you can not fix violated rule
@@ -51,6 +58,9 @@ make analyse
 ## Installation
 
 Add Code Quality tool to the Magento Project:
+
+### Warning!
+Eslisnt and Stylelint requires **NodeJs v10** or higher.
 
 ### Installation on a regular _Space48 Warden based Magento 2_ project:
 
