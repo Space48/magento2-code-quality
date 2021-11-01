@@ -28,6 +28,7 @@
     </rule>
 
     <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>*\.phtml$</exclude-pattern>
         <properties>
             <property name="ignoreComments" value="true"/>
             <property name="lineLimit" value="120"/>

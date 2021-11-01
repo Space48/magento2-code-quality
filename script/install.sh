@@ -2,7 +2,7 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.."
 
-npm install eslint stylelint --save-dev
+npm install eslint@7.4 stylelint@12 --save-dev # node v10 support
 
 [ -f ./ruleset.xml ] || cp $DIR/ruleset.xml ./
 [ -f ./phpmd.xml ] || cp $DIR/phpmd.xml ./
