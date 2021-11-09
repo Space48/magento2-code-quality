@@ -31,7 +31,6 @@
     "color-no-invalid-hex": true,
     "block-no-empty": true,
     "max-empty-lines": 1,
-    "unit-whitelist": ["px", "rem", "%", "fr", "vw", "vh", "s", "deg"],
     "unit-case": "lower",
     "color-hex-case": "lower",
     "color-hex-length": "short",
