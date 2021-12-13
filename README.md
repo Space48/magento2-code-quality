@@ -48,7 +48,31 @@ If you think everyone can benefit from your rules changes - feel free to create 
 
 ### CI Integration
 
-_(TBD)_
+To add Code Quality to Bitbucket pipelines as a mandatory step do following.
+
+#### Edit Makefile
+
+Add new command to makefile:
+```
+analyse-ci:
+    git fetch --shallow-since=01/09/2021
+    git diff 111999..HEAD | vendor/phpro/grumphp/bin/grumphp run
+```
+'111999' - is your starting commit hash
+
+#### Configure bitbucket-pipelines.yml
+
+Add new step to your build like this:
+```
+- step: &code-quality
+        name: "Code Quality"
+        script:
+          - if [ ! -f grumphp.yml ] || [ ! -d vendor/space48/magento2-code-quality ]; then printf 'No Space48 Code quality module found'; exit; fi
+          - /bin/bash -c "[ $(grep '^[ ]*eslint:' grumphp.yml) ] || [ $(grep '^[ ]*stylelint:' grumphp.yml) ] && source vendor/space48/magento2-code-quality/script/npm-install.sh"
+          - make analyse-ci
+```
+
+#### Check locally
 
 To run linters as it would run on CI (from starting commit till HEAD):
 ```shell
