@@ -36,4 +36,13 @@
         </properties>
     </rule>
 
+    <rule ref="Magento2.Files.LineLength">
+        <exclude-pattern>*\.phtml$</exclude-pattern>
+        <properties>
+            <property name="ignoreComments" value="true"/>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+
 </ruleset>

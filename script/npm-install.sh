@@ -55,8 +55,6 @@ semver_compare() {
 ##########################
 # Install NPM packages
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/.."
-
 NVER="$(node -v)"
 echo "NODE: $NVER"
 if [ $(semver_compare $NVER 11) = -1 ]; then

@@ -31,7 +31,7 @@
             {
                 "min": 3,
                 "max": 30,
-                "exceptions": ["x", "i", "j", "e", "$", "_", "__", "ko"],
+                "exceptions": ["x", "i", "j", "e", "$", "_", "__", "ko", "$t"],
                 "properties": "never"
             }
         ],
