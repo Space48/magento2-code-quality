@@ -6,50 +6,102 @@ use PHPMD\AbstractNode;
 
 class MagentoClassTypeResolver
 {
-    public static function isPlugin(AbstractNode $node)
+    private $types = [];
+
+    private $typeConfig = [
+        'plugin' => [
+            'xmlNode' => 'plugin',
+            'xmlAttribute' => 'type',
+            'configFile' => 'di.xml'
+        ],
+        'observer' => [
+            'xmlNode' => 'observer',
+            'xmlAttribute' => 'instance',
+            'configFile' => 'events.xml'
+        ]
+    ];
+
+    /**
+     * Returns type of the Magento class - 'plugin', 'observer', etc
+     *
+     * @param AbstractNode $node
+     * @return false|string
+     */
+    public function resolveType(AbstractNode $node)
     {
-        foreach (self::locateFiles($node, 'di.xml') as $path) {
-            $domDocument = new \DomDocument('1.0', 'UTF-8');
-            $domDocument->loadXML(\file_get_contents($path . 'di.xml'));
-            $domXPath = new \DOMXPath($domDocument);
+        if (!$this->types[$this->getClassName($node)]) {
+            foreach ($this->typeConfig as $typeName => $type) {
+                foreach (self::locateFiles($node, $type['configFile']) as $filePath) {
+                    $domDocument = new \DomDocument('1.0', 'UTF-8');
+                    $domDocument->loadXML(\file_get_contents($filePath));
+                    $domXPath = new \DOMXPath($domDocument);
 
-            /** @var \DOMElement $nodeMatches [] */
-            $nodeMatches = $domXPath->query(
-                \sprintf(
-                    '//plugin[@type="%s"]',
-                $node->getNamespaceName() . '\\' . $node->getParentName()
-                )
-            );
+                    /** @var \DOMElement $nodeMatches [] */
+                    $nodeMatches = $domXPath->query(
+                        \sprintf(
+                            '//%s[@%s="%s"]',
+                            $type['xmlNode'],
+                            $type['xmlAttribute'],
+                            $this->getClassName($node)
+                        )
+                    );
 
-            if ($nodeMatches->length) {
-                return true;
+                    if ($nodeMatches->length) {
+                        $this->types[$this->getClassName($node)] = $typeName;
+                        break 2;
+                    }
+                }
             }
         }
+
+        return $this->types[$this->getClassName($node)] ?? false;
     }
 
-    public static function isPluginMethod(AbstractNode $node)
+    /**
+     * @param AbstractNode $node
+     * @return string
+     */
+    private function getClassName(AbstractNode $node)
     {
-        return preg_match('/^(before|after|around)[A-Z].*/', $node->getName());
+        return $node->getNamespaceName() . '\\' . $node->getParentName();
     }
 
-    private function locateFiles(AbstractNode $node, $filename)
+    /**
+     * @param AbstractNode $node
+     * @param string $filename
+     * @return array
+     */
+    private function locateFiles(AbstractNode $node, string $filename): array
     {
         $namespace = explode('\\', $node->getNamespaceName());
+        if (empty($namespace[2])) {
+            return [];
+        }
+
         $path = strstr($node->getFileName(), $namespace[2], true) . 'etc';
 
-        return $this->searchFiles($path, $filename);
+        return array_filter($this->searchFiles($path, $filename));
     }
 
-    private function searchFiles($path, $fileName)
+    /**
+     * @param string $path
+     * @param string $fileName
+     * @return array
+     */
+    private function searchFiles(string $path, string $fileName): array
     {
         $configFiles = [];
 
         foreach (scandir($path) as $directory) {
+            if ($directory == '.' || $directory == '..') {
+                continue;
+            }
+
             $filePath = $path . DIRECTORY_SEPARATOR . $directory;
             if ($directory == $fileName) {
-                return $filePath;
+                $configFiles[] = $filePath;
             } elseif (is_dir($filePath)) {
-                $configFiles[] = $this->searchFiles($filePath);
+                $configFiles = array_merge($configFiles, $this->searchFiles($filePath, $fileName));
             }
         }
 
