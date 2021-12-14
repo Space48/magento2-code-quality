@@ -9,6 +9,9 @@
 
         <!-- overwritten in 'extra.xml' -->
         <exclude name="ExcessiveParameterList" />
+        <exclude name="UnusedFormalParameter" />
+
+
     </rule>
 
     <rule ref="dev/tests/static/testsuite/Magento/Test/Php/_files/phpmd/ruleset.xml/CyclomaticComplexity">

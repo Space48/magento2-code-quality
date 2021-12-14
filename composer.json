@@ -31,6 +31,7 @@
         "psr-4": {
             "Space48\\CodeQuality\\": "src",
             "Space48\\CodeQuality\\RuleSets\\": "rulesets",
+            "Space48\\CodeQuality\\Utils\\": "utils",
             "PHP_CodeSniffer\\": "../../squizlabs/php_codesniffer/src",
             "Magento\\": "../magento-coding-standard/Magento",
             "EcgM2\\": "../../magento-ecg/coding-standard/EcgM2",
