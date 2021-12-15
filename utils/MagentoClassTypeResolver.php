@@ -73,15 +73,15 @@ class MagentoClassTypeResolver
      */
     private function locateFiles(AbstractNode $node, string $filename): array
     {
-        $namespace = explode('\\', $node->getNamespaceName());
+        $namespace = \explode('\\', $node->getNamespaceName());
         // [2] will be the name of the folder just after Module folder in standard Magento module structure
         if (empty($namespace[2])) {
             return [];
         }
 
-        $path = strstr($node->getFileName(), $namespace[2], true) . 'etc';
+        $path = \strstr($node->getFileName(), $namespace[2], true) . 'etc';
 
-        return array_filter($this->searchFiles($path, $filename));
+        return \array_filter($this->searchFiles($path, $filename));
     }
 
     /**
@@ -93,7 +93,7 @@ class MagentoClassTypeResolver
     {
         $configFiles = [];
 
-        foreach (scandir($path) as $directory) {
+        foreach (\scandir($path) as $directory) {
             if ($directory == '.' || $directory == '..') {
                 continue;
             }
@@ -101,8 +101,8 @@ class MagentoClassTypeResolver
             $filePath = $path . DIRECTORY_SEPARATOR . $directory;
             if ($directory == $fileName) {
                 $configFiles[] = $filePath;
-            } elseif (is_dir($filePath)) {
-                $configFiles = array_merge($configFiles, $this->searchFiles($filePath, $fileName));
+            } elseif (\is_dir($filePath)) {
+                $configFiles = \array_merge($configFiles, $this->searchFiles($filePath, $fileName));
             }
         }
 

@@ -37,7 +37,7 @@ class MagentoClassType
      */
     public static function isPluginMethod(AbstractNode $node): bool
     {
-        return (bool)preg_match('/^(before|after|around)[A-Z].*/', $node->getName());
+        return (bool)\preg_match('/^(before|after|around)[A-Z].*/', $node->getName());
     }
 
     /**
