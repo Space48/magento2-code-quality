@@ -45,4 +45,26 @@ class Foo {
 
     </rule>
 
+    <rule name="UnusedFormalParameter"
+          since="0.2"
+          message="Avoid unused parameters such as '{0}'."
+          class="Space48\CodeQuality\RuleSets\PhpMd\UnusedFormalParameter"
+          externalInfoUrl="https://phpmd.org/rules/unusedcode.html#unusedformalparameter">
+        <description>
+            Avoid passing parameters to methods or constructors and then not using those parameters.
+        </description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+class Foo
+{
+    private function bar($howdy)
+    {
+        // $howdy is not used
+    }
+}
+]]>
+        </example>
+    </rule>
+
 </ruleset>
