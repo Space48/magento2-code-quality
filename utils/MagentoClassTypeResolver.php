@@ -61,7 +61,7 @@ class MagentoClassTypeResolver
      * @param AbstractNode $node
      * @return string
      */
-    private function getClassName(AbstractNode $node)
+    private function getClassName(AbstractNode $node): string
     {
         return $node->getNamespaceName() . '\\' . $node->getParentName();
     }

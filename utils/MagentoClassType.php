@@ -40,7 +40,11 @@ class MagentoClassType
         return (bool)preg_match('/^(before|after|around)[A-Z].*/', $node->getName());
     }
 
-    public function isObserverMethod(AbstractNode $node)
+    /**
+     * @param AbstractNode $node
+     * @return bool
+     */
+    public function isObserverMethod(AbstractNode $node): bool
     {
         return $node->getName() == 'execute';
     }
