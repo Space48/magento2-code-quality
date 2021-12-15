@@ -74,6 +74,7 @@ class MagentoClassTypeResolver
     private function locateFiles(AbstractNode $node, string $filename): array
     {
         $namespace = explode('\\', $node->getNamespaceName());
+        // [2] will be the name of the folder just after Module folder in standard Magento module structure
         if (empty($namespace[2])) {
             return [];
         }
