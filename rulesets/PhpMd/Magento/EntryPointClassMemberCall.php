@@ -32,13 +32,13 @@ class EntryPointClassMemberCall extends \PHPMD\AbstractRule implements \PHPMD\Ru
             }
         }
 
-        $calls = array_unique($calls);
-        if (count($calls) > $allowedCallsNumber) {
+        $calls = \array_unique($calls);
+        if (\count($calls) > $allowedCallsNumber) {
             $this->addViolation(
                 $node,
                 [
-                    count($calls),
-                    implode(', ', array_map(function ($function) { return "'{$function}'"; }, $calls)),
+                    \count($calls),
+                    \implode(', ', \array_map(function ($function) { return "'{$function}'"; }, $calls)),
                     $allowedCallsNumber
                 ]
             );
