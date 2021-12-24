@@ -67,4 +67,130 @@ class Foo
         </example>
     </rule>
 
+    <!-- Magento specific Rules -->
+    <rule name="EntryPointClassComplexity"
+          message = "Class {0} {1}() has a Cyclomatic Complexity of {2}. The cyclomatic complexity for Plugins and Observers {4} {0}s should be less than {3}. Use such classes to call models and services only."
+          class="Space48\CodeQuality\RuleSets\PhpMd\Magento\EntryPointClassComplexity"
+          externalInfoUrl="http://phpmd.org/rules/codesize.html#cyclomaticcomplexity">
+        <description>
+            <![CDATA[
+Entry point classes such as Observers and Plugins should be threat as thin controllers and should contain no business logic.
+Its only purpose is to process input/output data and call a service model that will implement business logic.
+
+Complexity is determined by the number of decision points in a method plus one for the
+method entry. The decision points are 'if', 'while', 'for', and 'case labels'. Generally,
+1-4 is low complexity, 5-7 indicates moderate complexity, 8-10 is high complexity,
+ and 11+ is very high complexity.
+            ]]>
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="reportLevel" description="The Cyclomatic Complexity reporting threshold for plugin and observer public methods"  value="6"/>
+            <property name="reportLevelPrivate" description="The Cyclomatic Complexity reporting threshold for private methods"  value="3"/>
+            <property name="showClassesComplexity"
+                      description="Indicate if class average violation should be added to the report"
+                      value="true"/>
+            <property name="showMethodsComplexity"
+                      description="Indicate if class average violation should be added to the report"
+                      value="true"/>
+        </properties>
+        <example>
+            <![CDATA[
+// Cyclomatic Complexity = 11
+class Foo {
+1   public function example() {
+2       if ($a == $b) {
+3           if ($a1 == $b1) {
+                fiddle();
+4           } elseif ($a2 == $b2) {
+                fiddle();
+            } else {
+                fiddle();
+            }
+5       } elseif ($c == $d) {
+6           while ($c == $d) {
+                fiddle();
+            }
+7        } elseif ($e == $f) {
+8           for ($n = 0; $n < $h; $n++) {
+                fiddle();
+            }
+        } else {
+            switch ($z) {
+9               case 1:
+                    fiddle();
+                    break;
+10              case 2:
+                    fiddle();
+                    break;
+11              case 3:
+                    fiddle();
+                    break;
+                default:
+                    fiddle();
+                    break;
+            }
+        }
+    }
+}
+            ]]>
+        </example>
+    </rule>
+
+    <rule name="EntryPointClassMemberCall"
+          message = "Class contains {0} method call(s) ({1}), only {2} call(s) allowed for Plugin and Observer class. It should only be used to make calls to module models."
+          class="Space48\CodeQuality\RuleSets\PhpMd\Magento\EntryPointClassMemberCall"
+          externalInfoUrl="#">
+        <description>
+            <![CDATA[
+Entry point classes such as Observers and Plugins should be threat as thin controllers and should contain no business logic.
+Its only purpose is to process input/output data and call a service model that will implement business logic.
+
+Do not add any methods into it that ends up initiating a chain of calls within the instance. Rather create a separate
+model service and move business logic there.
+            ]]>
+        </description>
+        <priority>2</priority>
+        <properties>
+            <property name="max-method-calls" value="1" description="Number of allowed self method calls" />
+        </properties>
+        <example>
+            <![CDATA[
+// good
+class PluginClass {
+    private $cartRuleResolver;
+
+    public function __construct(
+        \My\CartRule\Resolver $cartRuleResolver
+    ) {
+        $this-cartRuleResolver = $cartRuleResolver;
+    }
+
+    public function afterGetDiscountedItems($subject, array $items) {
+        return $this->cartRuleResolver->resolveItemsWithDiscount($items);
+    }
+}
+
+// bad
+class PluginClass {
+    private $cartRuleResolver;
+
+    public function __construct(
+        \My\CartRule\Resolver $cartRuleResolver
+    ) {
+        $this-cartRuleResolver = $cartRuleResolver;
+    }
+
+    public function afterGetDiscountedItems($subject, array $items) {
+        return $this->doStuff($items);
+    }
+
+    private function doStuff($items) {
+        return $this->cartRuleResolver->resolveItemsWithDiscount($items);
+    }
+}
+            ]]>
+        </example>
+    </rule>
+
 </ruleset>
