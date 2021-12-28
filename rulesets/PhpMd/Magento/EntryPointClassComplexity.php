@@ -49,7 +49,7 @@ class EntryPointClassComplexity extends AbstractRule implements FunctionAware, M
                     $node->getType(),
                     $node->getName(),
                     $ccn,
-                    $threshold,
+                    $threshold + 1,
                     $methodType
                 )
             );
