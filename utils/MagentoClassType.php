@@ -17,7 +17,7 @@ class MagentoClassType
     {
         $type = self::getResolver()->resolveType($node);
 
-        return $type == 'plugin';
+        return $type === 'plugin';
     }
 
     /**
@@ -28,7 +28,7 @@ class MagentoClassType
     {
         $type = self::getResolver()->resolveType($node);
 
-        return $type == 'observer';
+        return $type === 'observer';
     }
 
     /**
@@ -44,9 +44,9 @@ class MagentoClassType
      * @param AbstractNode $node
      * @return bool
      */
-    public function isObserverMethod(AbstractNode $node): bool
+    public static function isObserverMethod(AbstractNode $node): bool
     {
-        return $node->getName() == 'execute';
+        return $node->getName() === 'execute';
     }
 
     /**

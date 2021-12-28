@@ -29,7 +29,7 @@ class MagentoClassTypeResolver
      */
     public function resolveType(AbstractNode $node)
     {
-        if (!$this->types[$this->getClassName($node)]) {
+        if (empty($this->types[$this->getClassName($node)])) {
             foreach ($this->typeConfig as $typeName => $type) {
                 foreach (self::locateFiles($node, $type['configFile']) as $filePath) {
                     $domDocument = new \DomDocument('1.0', 'UTF-8');
@@ -39,16 +39,17 @@ class MagentoClassTypeResolver
                     /** @var \DOMElement $nodeMatches [] */
                     $nodeMatches = $domXPath->query(
                         \sprintf(
-                            '//%s[@%s="%s"]',
+                            '//%s[@%s]',
                             $type['xmlNode'],
-                            $type['xmlAttribute'],
-                            $this->getClassName($node)
+                            $type['xmlAttribute']
                         )
                     );
 
                     if ($nodeMatches->length) {
-                        $this->types[$this->getClassName($node)] = $typeName;
-                        break 2;
+                        /** @var \DOMElement $nodeMatch */
+                        foreach ($nodeMatches as $nodeMatch) {
+                            $this->types[$nodeMatch->getAttribute($type['xmlAttribute'])] = $typeName;
+                        }
                     }
                 }
             }
@@ -63,7 +64,8 @@ class MagentoClassTypeResolver
      */
     private function getClassName(AbstractNode $node): string
     {
-        return $node->getNamespaceName() . '\\' . $node->getParentName();
+        // class node will have Name, method node will have Parent Name
+        return $node->getNamespaceName() . '\\' . ($node->getParentName() ?: $node->getName());
     }
 
     /**

@@ -11,6 +11,9 @@
         <exclude name="Magento2.Exceptions.ThrowCatch" />
         <exclude name="Magento2.Commenting.ClassAndInterfacePHPDocFormatting.InvalidDescription" />
         <exclude name="Magento2.Performance.ForeachArrayMerge.ForeachArrayMerge" />
+
+        <!-- Covered by Magento2.Files.LineLength -->
+        <exclude name="Generic.Files.LineLength" />
     </rule>
 
     <rule ref="Squiz.Commenting.DocCommentAlignment.SpaceBeforeStar">
@@ -24,15 +27,6 @@
         <properties>
             <property name="complexity" value="13" />
             <property name="absoluteComplexity" value="13" />
-        </properties>
-    </rule>
-
-    <rule ref="Generic.Files.LineLength">
-        <exclude-pattern>*\.phtml$</exclude-pattern>
-        <properties>
-            <property name="ignoreComments" value="true"/>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="120"/>
         </properties>
     </rule>
 
