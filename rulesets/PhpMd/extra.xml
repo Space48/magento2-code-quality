@@ -74,7 +74,7 @@ class Foo
           externalInfoUrl="http://phpmd.org/rules/codesize.html#cyclomaticcomplexity">
         <description>
             <![CDATA[
-Entry point classes such as Observers and Plugins should be threat as thin controllers and should contain no business logic.
+Entry point classes such as Observers and Plugins should be treated as thin controllers and should contain no business logic.
 Its only purpose is to process input/output data and call a service model that will implement business logic.
 
 Complexity is determined by the number of decision points in a method plus one for the
