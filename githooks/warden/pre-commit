@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ -f vendor/phpro/grumphp/bin/grumphp ] || (echo "Code Quality tool not found" && exit 0);
+
+# Fetch the GIT diff and format it as command input:
+DIFF=$(git -c diff.mnemonicprefix=false -c diff.noprefix=false --no-pager diff -r -p -m -M --full-index --no-color --staged | cat)
+
+# Run GrumPHP
+[ "$DIFF" == '' ] || (cd "./" && printf "%s\n" "${DIFF}" | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' 'git:pre-commit' '--skip-success-output')

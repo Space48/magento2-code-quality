@@ -111,7 +111,12 @@ Copy files and install npm packages:
 ```shell
 warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
 warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
-vendor/bin/grumphp git:init
+```
+
+Add git precommit hook:
+```shell
+chmod +x vendor/space48/magento2-code-quality/script/add-hook.sh
+vendor/space48/magento2-code-quality/script/add-hook.sh
 ```
 
 Create `.git` folder in warden:
@@ -133,7 +138,8 @@ linters-init: # init linters on local machine
 	warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
 	warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
 	warden env exec php-fpm /bin/bash -c '[ -d .git ] || mkdir .git'
-	vendor/bin/grumphp git:init
+	chmod +x vendor/space48/magento2-code-quality/script/add-hook.sh
+	vendor/space48/magento2-code-quality/script/add-hook.sh
 
 analyse: # analyses all code from starting commit hash to HEAD
 	git diff a000z999..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
