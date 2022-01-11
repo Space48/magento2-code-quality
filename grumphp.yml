@@ -39,6 +39,23 @@ services:
             - '@GrumPHP\Util\Paths'
             - '@GrumPHP\Locator\ListedFiles'
 
+    ## add '--fix' cli option
+    GrumPHP\Console\Command\RunCommand:
+        class: \Space48\CodeQuality\Command\RunCommand
+        arguments:
+            - '@GrumPHP\Collection\TestSuiteCollection'
+            - '@GrumPHP\Locator\StdInFiles'
+            - '@GrumPHP\Locator\RegisteredFiles'
+            - '@GrumPHP\Runner\TaskRunner'
+        tags:
+            - { name: 'console.command' }
+    GrumPHP\Configuration\Model\FixerConfig:
+        class: \Space48\CodeQuality\Configuration\FixerConfig
+        factory: [ '\Space48\CodeQuality\Configuration\FixerConfig', 'fromArray' ]
+        arguments:
+            - '%fixer%'
+
+
 ## linter settings
 grumphp:
     git_hook_variables:
@@ -47,7 +64,7 @@ grumphp:
     ignore_unstaged_changes: false
     fixer:
         enabled: true
-        fix_by_default: true
+        fix_by_default: false
     tasks:
         phpmd:
             whitelist_patterns:
