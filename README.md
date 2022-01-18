@@ -79,6 +79,17 @@ To run linters as it would run on CI (from starting commit till HEAD):
 make analyse
 ```
 
+#### Automatically fix some errors
+
+Use any of this options:
+
+Option 1: Set `fixer/enabled` and `fixer/fix_by_default` to **true** in grumphp.yml file
+
+Option 2: Run command `vendor/phpro/grumphp/bin/grumphp run` with '--fix' option
+```shell
+vendor/phpro/grumphp/bin/grumphp run --fix
+```
+
 ## Installation
 
 Add Code Quality tool to the Magento Project:
@@ -134,22 +145,25 @@ git add ruleset.xml phpmd.xml .eslintrc .stylelintrc grumphp.yml
 
 #### 2. Add following to project`s 'Makefile':
 ```makefile
-linters-init: # init linters on local machine
-	warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
-	warden env exec php-fpm ./vendor/space48/magento2-code-quality/script/install.sh
-	warden env exec php-fpm /bin/bash -c '[ -d .git ] || mkdir .git'
-	chmod +x vendor/space48/magento2-code-quality/script/add-hook.sh
-	vendor/space48/magento2-code-quality/script/add-hook.sh
+### Code Quality section
+CQ_STARTING_COMMIT_HASH='a000z999'
+CQ_STARTING_COMMIT_DATE='01/01/2021'
 
-analyse: # analyses all code from starting commit hash to HEAD
-	git diff a000z999..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
-
-precommit: # analyses code staged for commit
-	git diff --staged | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
+-include 'vendor/space48/magento2-code-quality/code-quality.mk'
 ```
+It contains following commands:
 
-Replace the sample `a000z999` commit hash with the hash from the project where you want to start linting from.
+- `linters-init` - init linters on local machine
+- `analyse` - analyses all code from starting commit hash to HEAD
+- `fix` - analyses all code from starting commit hash to HEAD 
+- `precommit` - analyses code staged for commit 
+- `analyse-ci` - Same as 'analyse' but modified to be called during build on CI env
+
+Update `CQ_STARTING_COMMIT_HASH` variable. Replace the sample `a000z999` commit hash with the hash from the project where you want to start linting from.
 Files modified after the starting commit hash will be linted during project build and will fail the build on linter violations.
+
+Update `CQ_STARTING_COMMIT_DATE` variable. Replace sample `01/01/2021` date with the date of the Starting Commit
+(specified at `CQ_STARTING_COMMIT_HASH` variable). This is required because CI uses shallow git clone.
 
 **Note:**
 If using warden, commit still fails with `SplFileInfo::openFile(/var/www/html/.git/COMMIT_EDITMSG): failed to open st  
