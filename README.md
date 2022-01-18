@@ -149,7 +149,7 @@ git add ruleset.xml phpmd.xml .eslintrc .stylelintrc grumphp.yml
 CQ_STARTING_COMMIT_HASH='a000z999'
 CQ_STARTING_COMMIT_DATE='01/01/2021'
 
-include 'vendor/space48/magento2-code-quality/code-quality.mk'
+-include 'vendor/space48/magento2-code-quality/code-quality.mk'
 ```
 It contains following commands:
 
