@@ -1,6 +1,4 @@
 ### Code Quality section
-CQ_STARTING_COMMIT_HASH='a000z999'
-CQ_STARTING_COMMIT_DATE='01/01/2021'
 
 linters-init: ## init linters on local machine
 	warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
@@ -12,11 +10,14 @@ linters-init: ## init linters on local machine
 analyse: ## analyses all code from starting commit hash to HEAD
 	git diff ${CQ_STARTING_COMMIT_HASH}..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
 
-fix: ## analyses all code from starting commit hash to HEAD
+analyse-fix: ## analyses all code from starting commit hash to HEAD and fixes all autofixable errors
 	git diff ${CQ_STARTING_COMMIT_HASH}..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run --fix
 
 precommit: ## analyses code staged for commit
 	git diff --staged | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
+
+precommit-fix: ## analyses code staged for commit and fixes all autofixable errors
+	git diff --staged | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run --fix
 
 analyse-ci: # Called during build on CI
 	git fetch --shallow-since=${CQ_STARTING_COMMIT_DATE}
