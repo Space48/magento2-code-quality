@@ -155,7 +155,7 @@ It contains following commands:
 
 - `linters-init` - init linters on local machine
 - `analyse` - analyses all code from starting commit hash to HEAD
-- `analuse-fix` - analyses all code from starting commit hash to HEAD and fixes autofixable errors 
+- `analyse-fix` - analyses all code from starting commit hash to HEAD and fixes autofixable errors 
 - `precommit` - analyses code staged for commit 
 - `precommit-fix` - analyses code staged for commit and fixes autofixable errors
 - `analyse-ci` - Same as 'analyse' but modified to be called during build on CI env
