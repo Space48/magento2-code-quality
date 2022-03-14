@@ -3,6 +3,9 @@
 <ruleset name="Space48 Coding Standard">
     <arg name="extensions" value="php,phtml" />
 
+    <rule ref="vendor/space48/magento2-code-quality/rulesets/PhpCs/Space48Extra/extra.xml">
+    </rule>
+
     <rule ref="vendor/magento/magento-coding-standard/Magento2/ruleset.xml">
         <!-- Serves no purpose -->
         <exclude name="Squiz.Commenting.ClassComment.Missing" />

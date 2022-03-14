@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="Space48Extra">
+    <description>Space48 Extra</description>
+    <rule ref="vendor/space48/magento2-code-quality/rulesets/PhpCs/Space48Extra/Sniffs/NativeFunctionInvocationSniff.php">
+        <properties>
+            <property name="set" value="compiler_optimized" />
+        </properties>
+    </rule>
+</ruleset>
