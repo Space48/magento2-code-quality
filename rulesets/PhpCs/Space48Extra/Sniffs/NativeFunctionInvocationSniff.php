@@ -50,6 +50,11 @@ class NativeFunctionInvocationSniff extends ForbiddenFunctionsSniff
      */
     protected function addError($phpcsFile, $stackPtr, $functionName, $pattern = null)
     {
+        $prevToken = $phpcsFile->findPrevious(T_WHITESPACE, ($stackPtr - 1), null, true);
+        if ($phpcsFile->getTokens()[$prevToken]['code'] === T_NS_SEPARATOR) {
+            return;
+        }
+        
         $phpcsFile->addError($this->getErrorMessage(), $stackPtr, 'Encountered', [$functionName, $functionName]);
     }
 
