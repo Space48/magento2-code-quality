@@ -7,7 +7,7 @@ class FixerConfig extends \GrumPHP\Configuration\Model\FixerConfig
     /**
      * {@inheritdoc }
      */
-    public static function fromArray(array $config): self
+    public static function fromArray(array $config): \GrumPHP\Configuration\Model\FixerConfig
     {
         return new self(
             ($config['enabled'] ?? false),

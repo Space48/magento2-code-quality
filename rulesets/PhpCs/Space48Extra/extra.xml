@@ -6,4 +6,6 @@
             <property name="set" value="compiler_optimized" />
         </properties>
     </rule>
+    <rule ref="vendor/space48/magento2-code-quality/rulesets/PhpCs/Space48Extra/Sniffs/BlankLineBeforeReturnSniff.php">
+    </rule>
 </ruleset>
