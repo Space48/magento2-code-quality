@@ -6,6 +6,7 @@
         "indent": ["error", 4],
         "semi": [2, "always"],
         "yoda": ["error", "never"],
+        "newline-before-return": "error",
         "no-tabs": "error",
         "camelcase": "error",
         "max-len": ["error", { "code": 120,  "comments": 150 }],
