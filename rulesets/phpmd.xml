@@ -28,4 +28,6 @@
     <rule ref="vendor/space48/magento2-code-quality/rulesets/PhpMd/extra.xml" >
     </rule>
 
+    <exclude-pattern>app/etc/*</exclude-pattern>
+    <exclude-pattern>app/bootstrap.php</exclude-pattern>
 </ruleset>
