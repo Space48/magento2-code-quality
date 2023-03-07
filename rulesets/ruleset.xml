@@ -39,4 +39,6 @@
         </properties>
     </rule>
 
+    <exclude-pattern>app/etc/*</exclude-pattern>
+    <exclude-pattern>app/bootstrap.php</exclude-pattern>
 </ruleset>
