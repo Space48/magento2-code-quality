@@ -4,7 +4,7 @@
     "description": "Provides rulesets for phpmd, phpcs and eslint that overrides some Magento sniffs and provides some new ones as well",
     "license": "proprietary",
     "require": {
-        "phpro/grumphp": "^1.3",
+        "phpro/grumphp": "^1.15",
         "symfony/dom-crawler": "*",
         "magento/magento-coding-standard": "*",
         "phpmd/phpmd": "^2",
