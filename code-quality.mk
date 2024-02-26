@@ -1,4 +1,6 @@
 ### Code Quality section
+# requires var "CQ_STARTING_COMMIT_HASH" set to starting commit hash
+# requires var "CQ_STARTING_COMMIT_DATE" set to starting commit date
 
 linters-init: ## init linters on local machine
 	warden env exec php-fpm chmod +x vendor/space48/magento2-code-quality/script/install.sh
@@ -8,16 +10,16 @@ linters-init: ## init linters on local machine
 	vendor/space48/magento2-code-quality/script/add-hook.sh
 
 analyse: ## analyses all code from starting commit hash to HEAD
-	git diff ${CQ_STARTING_COMMIT_HASH}..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
+	git diff ${CQ_STARTING_COMMIT_HASH}..HEAD | warden env exec -T php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
 
 analyse-fix: ## analyses all code from starting commit hash to HEAD and fixes all autofixable errors
-	git diff ${CQ_STARTING_COMMIT_HASH}..HEAD | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run --fix
+	git diff ${CQ_STARTING_COMMIT_HASH}..HEAD | warden env exec -T php-fpm 'vendor/phpro/grumphp/bin/grumphp' run --fix
 
 precommit: ## analyses code staged for commit
-	git diff --staged | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
+	git diff --staged | warden env exec -T php-fpm 'vendor/phpro/grumphp/bin/grumphp' run
 
 precommit-fix: ## analyses code staged for commit and fixes all autofixable errors
-	git diff --staged | warden env run --rm php-fpm 'vendor/phpro/grumphp/bin/grumphp' run --fix
+	git diff --staged | warden env exec -T php-fpm 'vendor/phpro/grumphp/bin/grumphp' run --fix
 
 analyse-ci: # Called during build on CI
 	git fetch --shallow-since=${CQ_STARTING_COMMIT_DATE}
