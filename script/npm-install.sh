@@ -62,5 +62,5 @@ if [ $(semver_compare $NVER 11) = -1 ]; then
     npm install eslint@7.4 stylelint@12 --save-dev
 else
     echo "Install Latest"
-    npm install eslint stylelint --save-dev
+    npm install eslint@8.57 stylelint --save-dev
 fi
