@@ -2,6 +2,7 @@
 
 namespace Space48\CodeQuality\Task;
 
+use GrumPHP\Task\Config\ConfigOptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -9,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PhpMd extends \GrumPHP\Task\PhpMd
 {
-    public static function getConfigurableOptions(): \GrumPHP\Task\Config\ConfigOptionsResolver
+    public static function getConfigurableOptions(): ConfigOptionsResolver
     {
         // due to Factory pattern they used we can no longer extend Options after calling parent method
         // copy from parent, cchanges are marked with "@added-by-Space48"
@@ -31,5 +32,4 @@ class PhpMd extends \GrumPHP\Task\PhpMd
 
         return ConfigOptionsResolver::fromOptionsResolver($resolver);
     }
-
 }
