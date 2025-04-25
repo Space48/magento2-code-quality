@@ -4,18 +4,18 @@
     "description": "Provides rulesets for phpmd, phpcs and eslint that overrides some Magento sniffs and provides some new ones as well",
     "license": "proprietary",
     "require": {
-        "phpro/grumphp": "^1.3",
+        "phpro/grumphp": "^2.*",
         "symfony/dom-crawler": "*",
         "magento/magento-coding-standard": "*",
         "phpmd/phpmd": "^2",
-        "squizlabs/php_codesniffer": ">=2.9.2 <4.0.0",
+        "squizlabs/php_codesniffer": "*",
         "space48/grumphp-stylelint-task": "^1.0"
     },
     "require-dev": {
     },
     "config": {
         "platform": {
-            "php": "7.0.33"
+            "php": ">=8.4"
         }
     },
     "authors": [
