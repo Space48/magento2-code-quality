@@ -13,7 +13,7 @@ class PhpMd extends \GrumPHP\Task\PhpMd
     public static function getConfigurableOptions(): ConfigOptionsResolver
     {
         // due to Factory pattern they used we can no longer extend Options after calling parent method
-        // copy from parent, cchanges are marked with "@added-by-Space48"
+        // copy from parent, changes are marked with "@added-by-Space48"
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'whitelist_patterns' => [],
