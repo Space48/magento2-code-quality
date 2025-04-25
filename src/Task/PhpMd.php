@@ -9,12 +9,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PhpMd extends \GrumPHP\Task\PhpMd
 {
-    public static function getConfigurableOptions(): OptionsResolver
+    public static function getConfigurableOptions(): \GrumPHP\Task\Config\ConfigOptionsResolver
     {
-        $resolver = parent::getConfigurableOptions();
-        $resolver->addAllowedValues('report_format', ['xml']);
+        // due to Factory pattern they used we can no longer extend Options after calling parent method
+        // copy from parent, cchanges are marked with "@added-by-Space48"
+        $resolver = new OptionsResolver();
+        $resolver->setDefaults([
+            'whitelist_patterns' => [],
+            'exclude' => [],
+            'report_format' => 'text',
+            'ruleset' => ['cleancode', 'codesize', 'naming'],
+            'triggered_by' => ['php'],
+        ]);
 
-        return $resolver;
+        $resolver->addAllowedTypes('whitelist_patterns', ['array']);
+        $resolver->addAllowedTypes('exclude', ['array']);
+        $resolver->addAllowedTypes('report_format', ['string']);
+        $resolver->addAllowedValues('report_format', ['text', 'ansi', 'xml']); // @added-by-Space48: "xml" format
+        $resolver->addAllowedTypes('ruleset', ['array']);
+        $resolver->addAllowedTypes('triggered_by', ['array']);
+
+        return ConfigOptionsResolver::fromOptionsResolver($resolver);
     }
 
 }

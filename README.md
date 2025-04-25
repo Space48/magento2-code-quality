@@ -151,6 +151,9 @@ CQ_STARTING_COMMIT_DATE='01/01/2021'
 
 -include 'vendor/space48/magento2-code-quality/code-quality.mk'
 ```
+(_If you don`t have 'vendor' under VCS - copy vendor/space48/magento2-code-quality/code-quality.mk file somewhere 
+to your project and link it from there_)
+
 It contains following commands:
 
 - `linters-init` - init linters on local machine
