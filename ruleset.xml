@@ -2,6 +2,9 @@
 
 <ruleset name="Space48 Coding Standard Project Specific">
     <rule ref="vendor/space48/magento2-code-quality/rulesets/ruleset.xml">
+        <exclude name="Magento2.Annotation.MethodAnnotationStructure" />
+        <exclude name="Magento2.Annotation.MethodArguments" />
+        <exclude name="Magento2.Commenting.ClassPropertyPHPDocFormatting" />
     </rule>
 
 </ruleset>
