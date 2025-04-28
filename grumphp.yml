@@ -98,10 +98,11 @@ grumphp:
             max_warnings: ~
             no_eslintrc: false
             quiet: false
-        stylelint:
-            bin: node_modules/.bin/stylelint
-            triggered_by: [ css, scss, less ]
-            allowed_paths:
-                - /^app/
-    extensions:
-        - Space48\GrumPHPStylelintTask\Extension
+# Needs PHP 8.4 support
+#        stylelint:
+#            bin: node_modules/.bin/stylelint
+#            triggered_by: [ css, scss, less ]
+#            allowed_paths:
+#                - /^app/
+#    extensions:
+#        - Space48\GrumPHPStylelintTask\Extension
