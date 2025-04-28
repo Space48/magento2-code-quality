@@ -47,6 +47,7 @@ services:
             - '@GrumPHP\Locator\StdInFiles'
             - '@GrumPHP\Locator\RegisteredFiles'
             - '@GrumPHP\Runner\TaskRunner'
+            - '@GrumPHP\IO\IOInterface'
         tags:
             - { name: 'console.command' }
     GrumPHP\Configuration\Model\FixerConfig:
@@ -70,7 +71,7 @@ grumphp:
             whitelist_patterns:
                 - /^app/
             triggered_by: [ 'php', 'phtml' ]
-            exclude: [ ]
+            exclude: [ '*Test.php' ]
             report_format: xml
             ruleset: [ 'phpmd.xml' ]
         phpcs:
@@ -85,7 +86,7 @@ grumphp:
                 - /^app/
             triggered_by: [ 'php', 'phtml' ]
             encoding: ~
-            ignore_patterns: [ ]
+            ignore_patterns: [ '*Test.php$' ]
             sniffs: [ ]
             exclude: [ ]
         eslint:
