@@ -7,6 +7,7 @@ use GrumPHP\IO\ConsoleIO;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Util\Filesystem;
 use GrumPHP\Util\Paths;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Adds '--fix' command line option to the 'run' command
  */
+#[AsCommand(name: 'run', description: 'Run configured tasks')]
 class RunCommand extends \GrumPHP\Console\Command\RunCommand
 {
 

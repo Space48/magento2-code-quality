@@ -5,7 +5,7 @@
     "license": "proprietary",
     "require": {
         "php": "^8",
-        "phpro/grumphp": "^2",
+        "phpro/grumphp": "^2.18",
         "symfony/dom-crawler": "^7",
         "magento/magento-coding-standard": "*",
         "phpmd/phpmd": "^2",

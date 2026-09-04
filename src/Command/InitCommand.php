@@ -6,12 +6,14 @@ use GrumPHP\Configuration\Model\HooksConfig;
 use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Util\Filesystem;
 use GrumPHP\Util\Paths;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Removes 'commit-msg' as it will not work inside warden if there is no .git folder there
  */
+#[AsCommand(name: 'git:init', description: 'Registers the Git hooks')]
 class InitCommand extends \GrumPHP\Console\Command\Git\InitCommand
 {
     public function __construct(
