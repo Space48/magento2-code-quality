@@ -1,6 +1,6 @@
 {
     "name": "space48/magento2-code-quality",
-    "type": "codesniffer-standard",
+    "type": "phpcodesniffer-standard",
     "description": "Provides rulesets for phpmd, phpcs and eslint that overrides some Magento sniffs and provides some new ones as well",
     "license": "proprietary",
     "require": {
